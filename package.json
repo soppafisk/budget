@@ -8,5 +8,10 @@
     "gulp": "^3.9.1",
     "laravel-elixir": "^5.0.0",
     "bootstrap-sass": "^3.0.0"
+  },
+  "dependencies": {
+    "react": "^15.0.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
   }
 }
