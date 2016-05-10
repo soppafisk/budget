@@ -20,3 +20,7 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/plan', 'PlanController@index');
+
+Route::get('/plan/{id}', 'PlanController@show');
+
+Route::post('/plan/store', ['as' => 'plan.store', 'uses' => 'PlanController@store']);
