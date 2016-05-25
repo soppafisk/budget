@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Auth;
 use JWTAuth;
 use App\Plan;
+use App\Store;
 
 class PlanController extends Controller
 {
@@ -15,16 +16,19 @@ class PlanController extends Controller
     {
         $user = Auth::user();
         $token = JWTAuth::fromUser($user);
-        return view('plan/index', compact('token'));
+        $plans = $user->plans()->get();
+
+        return view('plan/index', compact('token', 'plans'));
     }
 
     public function show($id)
     {
-        $user = JWTAuth::parseToken()->toUser();
-        $plan = Plan::findOrFail($id)->with(['users'])->first();
+        $user = Auth::user();
+        $token = JWTAuth::fromUser($user);
 
+        $plan = Plan::with(['users'])->findOrFail($id);
         $stores = Store::get();
-        return view('plans.show', compact('plan', 'stores'));
+        return view('plan.show', compact('plan', 'stores', 'token'));
     }
 
     /**

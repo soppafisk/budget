@@ -11,6 +11,14 @@
 |
 */
 
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', function($api) {
+    $api->get('/plan/{id}/month/{month}', 'App\Http\Controllers\Api\ReceiptController@show');
+    $api->post('plan/{planId}/receipt', 'App\Http\Controllers\Api\ReceiptController@store');
+
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
