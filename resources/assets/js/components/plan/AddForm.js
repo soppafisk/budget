@@ -20,6 +20,7 @@ var AddForm = React.createClass({
             handleSubmit,
             planId
         } = this.props;
+
         return(
             <div className="addForm col-md-6">
                 <form onSubmit={handleSubmit(this.handleSubmit)}>
@@ -33,7 +34,7 @@ var AddForm = React.createClass({
                     </div>
                     <div className="form-group">
                         <label htmlFor="buy_date">Köpdatum:</label>
-                        <input type="date" name="buy_date" className="form-control" {...buy_date}/>
+                        <input type="date" name="buy_date" className="form-control" {...buy_date} value={buy_date.value || new Date().toISOString().slice(0,10) } />
                     </div>
                     <div className="form-group">
                         <label htmlFor="comment">Kommentar:</label>
