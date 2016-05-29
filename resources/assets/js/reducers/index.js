@@ -11,7 +11,6 @@ export function receiptReducer(state = initialState, action) {
             });
 
         case 'ADD_RECEIPT':
-            console.log(action);
             return Object.assign({}, state, {
                 receipts: [
                     ...state.receipts,
@@ -21,6 +20,7 @@ export function receiptReducer(state = initialState, action) {
 
         case 'REMOVE_RECEIPT':
             var i = state.receipts.indexOf(action.receipt);
+
             return Object.assign({}, state, {
                 receipts: [
                     ...state.receipts.slice(0, i),

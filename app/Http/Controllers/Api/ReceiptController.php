@@ -26,13 +26,13 @@ class ReceiptController extends Controller
     public function store(Request $request, $planId)
     {
         $receipt = new Receipt($request->all()['receipt']);
-        Log::info($receipt);
+
         $user = JWTAuth::parseToken()->toUser();
 
         $storeName = $request->input('receipt.store');
         $date = $request->input('receipt.buy_date');
         $receipt->buy_date = Carbon::createFromFormat('Y-m-d', $date);
-        Log::info($request->buy_date);
+
         $store = Store::firstOrCreate(['name' => $storeName]);
         $receipt->store()->associate($store);
 
@@ -49,6 +49,7 @@ class ReceiptController extends Controller
         $plan = Plan::findOrFail($planId);
 
         $receipts = $plan->receipts()
+            ->with(['store'])
             ->get();
 
         return $receipts;

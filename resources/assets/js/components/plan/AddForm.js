@@ -21,8 +21,7 @@ var AddForm = React.createClass({
             planId
         } = this.props;
         return(
-            <div className="addForm">
-                { planId }
+            <div className="addForm col-md-6">
                 <form onSubmit={handleSubmit(this.handleSubmit)}>
                     <div className="form-group">
                         <label htmlFor="amount">Summa:</label>

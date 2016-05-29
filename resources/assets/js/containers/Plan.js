@@ -27,8 +27,10 @@ const Plan = React.createClass({
             );
         })
         return (
-            <div className="plan">
-                {receiptNodes}
+            <div className="plan row">
+                <div className="receipt-list col-md-6">
+                    {receiptNodes}
+                </div>
                 <AddForm planId={ planId } />
             </div>
         );
