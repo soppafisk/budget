@@ -5,7 +5,7 @@ var initialState = {
 
 export function receiptReducer(state = initialState, action) {
     switch (action.type) {
-        case 'FETCH_RECEIPTS':
+        case 'UPDATE_RECEIPTS':
             return Object.assign({}, state, {
                 receipts: action.receipts
             });

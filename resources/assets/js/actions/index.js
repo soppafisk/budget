@@ -12,7 +12,7 @@ function getAuthToken() {
 
 function checkStatus(res) {
     if (res.status >= 200 && res.status < 300) {
-        return res.json();
+        return res;
     } else {
         var error = new Error(response.statusText);
         error.response = response;
@@ -23,10 +23,10 @@ function checkStatus(res) {
 
 export function fetchReceipts(planId, month) {
     return dispatch => {
-        fetch(getApiUrl(planId) + '/month/5')
+        fetch(getApiUrl(planId) + '/y/2016/m/5')
         .then(result => result.json())
         .then(result => dispatch({
-            type: 'FETCH_RECEIPTS',
+            type: 'UPDATE_RECEIPTS',
             receipts: result.receipts
         }));
     };
@@ -48,10 +48,11 @@ export function addReceipt(receipt, planId) {
             })
         })
         .then(checkStatus)
+        .then(res => res.json())
         .then(res => {
             dispatch({
-                type: 'ADD_RECEIPT',
-                receipt: res.receipt
+                type: 'UPDATE_RECEIPTS',
+                receipts: res.receipts
             });
             dispatch(reset('addReceiptForm'));
         });

@@ -41,16 +41,28 @@ class ReceiptController extends Controller
 
         $user->receipts()->save($receipt);
 
-        return $receipt;
+        $year = $receipt->buy_date->year;
+        $month = $receipt->buy_date->month;
+
+        $receipts = $plan->receipts()
+            ->whereYear('buy_date', '=', $year)
+            ->whereMonth('buy_date', '=', $month)
+            ->with(['store'])
+            ->get();
+
+        return ['receipts' => $receipts];
     }
 
-    public function show($planId, $month)
+    public function show($planId, $year, $month)
     {
         $plan = Plan::findOrFail($planId);
 
         $receipts = $plan->receipts()
+            ->whereYear('buy_date', '=', $year)
+            ->whereMonth('buy_date', '=', $month)
             ->with(['store'])
             ->get();
+
 
         return $receipts;
     }
