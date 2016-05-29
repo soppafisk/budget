@@ -1,5 +1,6 @@
 var $ = require('jquery');
 import fetch from 'isomorphic-fetch'
+import { reset } from 'redux-form'
 
 function getApiUrl(id) {
     return "/api/plan/" + id; 
@@ -52,6 +53,7 @@ export function addReceipt(receipt, planId) {
                 type: 'ADD_RECEIPT',
                 receipt: res.receipt
             });
+            dispatch(reset('addReceiptForm'));
         });
     }
 }
