@@ -6,15 +6,18 @@ use Illuminate\Http\Request;
 
 use Log;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Plan;
 use App\Receipt;
 use App\Store;
 use JWTAuth;
 use Carbon\Carbon;
+use Dingo\Api\Routing\Helpers;
+use Illuminate\Routing\Controller;
 
 class ReceiptController extends Controller
 {
+    use Helpers;
+
     public function month($planId, $month)
     {
 
@@ -47,9 +50,24 @@ class ReceiptController extends Controller
 
         $receipts = $plan->receipts()
             ->get();
-        foreach ($receipts as $r) {
-            Log::info($r->buy_date);
-        }
+
         return $receipts;
+    }
+
+    public function remove(Request $request, $planId, $receiptId)
+    {
+        $plan = Plan::findOrFail($planId);
+        $user = JWTAuth::parseToken()->toUser();
+        $receipt = $user->receipts()->findOrFail($receiptId);
+
+        if(!$receipt) {
+            return $this->response->errorForbidden();
+        }
+
+        if (!$receipt->delete()) {
+            return $this->response->errorInternal();
+        }
+
+        return $this->response->noContent();
     }
 }

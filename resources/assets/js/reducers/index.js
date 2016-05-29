@@ -9,7 +9,15 @@ export function receiptReducer(state = initialState, action) {
             console.log(action.receipts);
             return Object.assign({}, state, {
                 receipts: action.receipts
-            })
+            });
+        case 'REMOVE_RECEIPT':
+            var i = state.receipts.indexOf(action.receipt);
+            return Object.assign({}, state, {
+                receipts: [
+                    ...state.receipts.slice(0, i),
+                    ...state.receipts.slice(i + 1)
+                ]
+            });
         default:
             return state;
     }

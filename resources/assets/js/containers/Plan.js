@@ -17,12 +17,13 @@ const Plan = React.createClass({
     },
     render: function() {
         let plan = this.props.receipts;
+        let { dispatch } = this.props;
         let removeButtonClick = this.removeButtonClick;
         let planId = this.props.params.planId;
         let receiptNodes = plan.receipts.map(function(data) {
             let receipt = data;
             return (
-                <Receipt data={receipt} key={ receipt.id } removeButtonClick={ () => removeReceipt(receipt, planId) }/>
+                <Receipt data={receipt} key={ receipt.id } removeButtonClick={ () => dispatch(removeReceipt(receipt, planId)) }/>
             );
         })
         return (

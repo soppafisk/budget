@@ -5,6 +5,10 @@ function getApiUrl(id) {
     return "/api/plan/" + id; 
 }
 
+function getAuthToken() {
+    return 'Bearer ' + $('meta[name="data-token"]').attr('content');
+}
+
 export function fetchReceipts(planId, month) {
     return dispatch => {
         fetch(getApiUrl(planId) + '/month/5')
@@ -18,7 +22,7 @@ export function fetchReceipts(planId, month) {
 
 export function addReceipt(receipt, planId) {
 
-    var auth = 'Bearer ' + $('meta[name="data-token"]').attr('content');
+    var auth = getAuthToken();
     console.log(receipt);
 
     return dispatch => {
@@ -41,5 +45,29 @@ export function addReceipt(receipt, planId) {
 }
 
 export function removeReceipt(receipt, planId) {
-    console.log(receipt, planId);
+    var url = getApiUrl(planId) + '/receipt/' + receipt.id;
+
+    return dispatch => {
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': getAuthToken(),
+            },
+            body: JSON.stringify({
+                receipt: receipt,
+            })
+        })
+        .then(res => {
+            if (res.status >= 200 && res.status < 300) {
+                console.log(res);
+
+                dispatch({
+                    type: 'REMOVE_RECEIPT',
+                    receipt: receipt
+                });
+            }
+        });
+    };
 }
