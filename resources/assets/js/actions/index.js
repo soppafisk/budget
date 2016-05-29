@@ -9,6 +9,17 @@ function getAuthToken() {
     return 'Bearer ' + $('meta[name="data-token"]').attr('content');
 }
 
+function checkStatus(res) {
+    if (res.status >= 200 && res.status < 300) {
+        return res.json();
+    } else {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+    }
+
+}
+
 export function fetchReceipts(planId, month) {
     return dispatch => {
         fetch(getApiUrl(planId) + '/month/5')
@@ -35,14 +46,12 @@ export function addReceipt(receipt, planId) {
                 receipt: receipt,
             })
         })
-        .then(res => res.json())
+        .then(checkStatus)
         .then(res => {
-            if (res.status >= 200 && res.status < 300) {
-                dispatch({
-                    type: 'ADD_RECEIPT',
-                    receipt: res.receipt
-                });
-            }
+            dispatch({
+                type: 'ADD_RECEIPT',
+                receipt: res.receipt
+            });
         });
     }
 }
@@ -62,13 +71,12 @@ export function removeReceipt(receipt, planId) {
                 receipt: receipt,
             })
         })
+        .then(checkStatus)
         .then(res => {
-            if (res.status >= 200 && res.status < 300) {
-                dispatch({
-                    type: 'REMOVE_RECEIPT',
-                    receipt: receipt
-                });
-            }
+            dispatch({
+                type: 'REMOVE_RECEIPT',
+                receipt: receipt
+            });
         });
     };
 }
