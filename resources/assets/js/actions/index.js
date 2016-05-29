@@ -21,9 +21,7 @@ export function fetchReceipts(planId, month) {
 }
 
 export function addReceipt(receipt, planId) {
-
     var auth = getAuthToken();
-    console.log(receipt);
 
     return dispatch => {
         fetch(getApiUrl(planId) + '/receipt', {
@@ -39,7 +37,12 @@ export function addReceipt(receipt, planId) {
         })
         .then(res => res.json())
         .then(res => {
-            console.log(res);
+            if (res.status >= 200 && res.status < 300) {
+                dispatch({
+                    type: 'ADD_RECEIPT',
+                    receipt: res.receipt
+                });
+            }
         });
     }
 }
@@ -61,8 +64,6 @@ export function removeReceipt(receipt, planId) {
         })
         .then(res => {
             if (res.status >= 200 && res.status < 300) {
-                console.log(res);
-
                 dispatch({
                     type: 'REMOVE_RECEIPT',
                     receipt: receipt
