@@ -18,11 +18,6 @@ class ReceiptController extends Controller
 {
     use Helpers;
 
-    public function month($planId, $month)
-    {
-
-    }
-
     public function store(Request $request, $planId)
     {
         $receipt = new Receipt($request->all()['receipt']);
