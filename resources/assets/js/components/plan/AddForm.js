@@ -34,7 +34,7 @@ var AddForm = React.createClass({
                     </div>
                     <div className="form-group">
                         <label htmlFor="buy_date">Köpdatum:</label>
-                        <input type="date" name="buy_date" className="form-control" {...buy_date} value={buy_date.value || new Date().toISOString().slice(0,10) } />
+                        <input type="date" name="buy_date" className="form-control" {...buy_date} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="comment">Kommentar:</label>

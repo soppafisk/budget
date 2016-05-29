@@ -44,7 +44,7 @@ const initialNewReceiptState = {
     store: '',
     sum: 0,
     buy_amount: '',
-    date: new Date(),
+    buy_date: new Date().toISOString().slice(0,10),
     comment: '',
 }
 
