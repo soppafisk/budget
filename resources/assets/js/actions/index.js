@@ -1,6 +1,7 @@
 var $ = require('jquery');
 import fetch from 'isomorphic-fetch'
 import { reset } from 'redux-form'
+import { push } from 'react-router-redux'
 
 function getApiUrl(id) {
     return "/api/plan/" + id; 
@@ -10,9 +11,9 @@ function getAuthToken() {
     return 'Bearer ' + $('meta[name="data-token"]').attr('content');
 }
 
-function checkStatus(res) {
-    if (res.status >= 200 && res.status < 300) {
-        return res;
+function checkStatus(result) {
+    if (result.status >= 200 && res.status < 300) {
+        return result;
     } else {
         var error = new Error(response.statusText);
         error.response = response;
@@ -21,14 +22,31 @@ function checkStatus(res) {
 
 }
 
-export function fetchReceipts(planId, month) {
+export function fetchReceipts(planId, year, month) {
+    let url = getApiUrl(planId);
+    if (year && month) {
+        url = url + `/y/${year}/m/${month}`
+    }
     return dispatch => {
-        fetch(getApiUrl(planId) + '/y/2016/m/5')
+        fetch(url)
         .then(result => result.json())
         .then(result => dispatch({
-            type: 'UPDATE_RECEIPTS',
-            receipts: result.receipts
-        }));
+                type: 'UPDATE_RECEIPTS',
+                receipts: result.receipts,
+                planData: result.planData
+            })
+        )
+        .then(result => {
+            if (!year && !month) {
+                const { year, month } = result.planData;
+                dispatch(push(`/plan/${planId}/y/${year}/m/${month}`))
+            }
+            dispatch({
+                type: 'CHANGE_MONTH',
+                year: year,
+                month: month,
+            });            
+        });
     };
 }
 
@@ -48,11 +66,12 @@ export function addReceipt(receipt, planId) {
             })
         })
         .then(checkStatus)
-        .then(res => res.json())
-        .then(res => {
+        .then(result => result.json())
+        .then(result => {
             dispatch({
                 type: 'UPDATE_RECEIPTS',
-                receipts: res.receipts
+                receipts: result.receipts,
+                planData: result.planData
             });
             dispatch(reset('addReceiptForm'));
         });

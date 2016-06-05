@@ -45,11 +45,23 @@ class ReceiptController extends Controller
             ->with(['store'])
             ->get();
 
-        return ['receipts' => $receipts];
+        return [
+            'receipts' => $receipts,
+            'planData' => [
+                'month' => $month,
+                'year'  => $year
+            ]
+        ];
     }
 
-    public function show($planId, $year, $month)
+    public function show($planId, $year = null, $month = null)
     {
+        if (!$year || !$month) {
+            $date = Carbon::now();
+
+            $year = $date->year;
+            $month = $date->month;
+        }
         $plan = Plan::findOrFail($planId);
 
         $receipts = $plan->receipts()
@@ -59,7 +71,14 @@ class ReceiptController extends Controller
             ->get();
 
 
-        return $receipts;
+        return [
+            'receipts' => $receipts,
+            'planData' => [
+                'planId' => $planId,
+                'month'  => $month,
+                'year'   => $year
+            ]
+        ];
     }
 
     public function remove(Request $request, $planId, $receiptId)

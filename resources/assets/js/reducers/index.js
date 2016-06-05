@@ -36,7 +36,6 @@ export function visibilityFilter(state = 'SHOW_ALL', action) {
     switch (action.type) {
         default:
             return state;
-
     }
 }
 
@@ -50,6 +49,18 @@ const initialNewReceiptState = {
 
 export function newReceipt(state = initialNewReceiptState, action) {
     switch (action.type) {
+        default:
+            return state;
+    }
+}
+
+export function planData(state = {}, action) {
+    switch (action.type) {
+        case 'CHANGE_MONTH':
+            return Object.assign({}, state, {
+                year: action.year,
+                month: action.month,
+            });
         default:
             return state;
     }

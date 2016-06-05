@@ -1,6 +1,7 @@
 import React, { Component, Proptypes } from 'react'
 import { connect } from 'react-redux'
 import AddForm from '../components/plan/AddForm'
+import MonthChooser from '../components/plan/MonthChooser'
 import { fetchReceipts, removeReceipt } from '../actions'
 import Receipt from '../components/plan/Receipt'
 var $ = require('jquery');
@@ -10,10 +11,27 @@ const Plan = React.createClass({
         const {
             dispatch,
             plan,
-            params
+            params,
+            history
         } = this.props;
 
-        dispatch(fetchReceipts(params.planId));
+        const { month, year } = params;
+
+        dispatch(fetchReceipts(params.planId, year, month));
+    },
+    componentWillReceiveProps: function(nextProps) {
+
+        if (nextProps.params !== this.props.params) {
+          const {
+              dispatch,
+              params,
+          } = nextProps;
+
+          const { month, year } = params;
+
+          dispatch(fetchReceipts(params.planId, year, month));
+        }
+
     },
     render: function() {
         let plan = this.props.receipts;
@@ -28,10 +46,16 @@ const Plan = React.createClass({
         })
         return (
             <div className="plan row">
-                <div className="receipt-list col-md-6">
-                    {receiptNodes}
+
+                <div className="col-md-6">
+                    <MonthChooser params={ this.props.params } router={ history } removeButtonClick={ () => dispatch(removeReceipt(receipt, planId)) } />
+                    <div className="plan-list">
+                        {receiptNodes}
+                    </div>
                 </div>
-                <AddForm planId={ planId } />
+                <div className="col-md-6">
+                    <AddForm planId={ planId } />
+                </div>
             </div>
         );
     }
