@@ -22,7 +22,7 @@ var AddForm = React.createClass({
         } = this.props;
 
         return(
-            <div className="addForm col-md-6">
+            <div className="addForm">
                 <form onSubmit={handleSubmit(this.handleSubmit)}>
                     <div className="form-group">
                         <label htmlFor="amount">Summa:</label>

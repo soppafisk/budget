@@ -12,7 +12,7 @@ function getAuthToken() {
 }
 
 function checkStatus(result) {
-    if (result.status >= 200 && res.status < 300) {
+    if (result.status >= 200 && result.status < 300) {
         return result;
     } else {
         var error = new Error(response.statusText);
@@ -94,7 +94,7 @@ export function removeReceipt(receipt, planId) {
             })
         })
         .then(checkStatus)
-        .then(res => {
+        .then(result => {
             dispatch({
                 type: 'REMOVE_RECEIPT',
                 receipt: receipt
