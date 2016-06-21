@@ -2,6 +2,7 @@ import React, { Component, Proptypes } from 'react'
 import { connect } from 'react-redux'
 import AddForm from '../components/plan/AddForm'
 import MonthChooser from '../components/plan/MonthChooser'
+import MonthSum from '../components/plan/MonthSum'
 import { fetchReceipts, removeReceipt } from '../actions'
 import Receipt from '../components/plan/Receipt'
 var $ = require('jquery');
@@ -51,6 +52,9 @@ const Plan = React.createClass({
                     <MonthChooser params={ this.props.params } router={ history } removeButtonClick={ () => dispatch(removeReceipt(receipt, planId)) } />
                     <div className="plan-list">
                         {receiptNodes}
+                    </div>
+                    <div className="plan-sum">
+                        <MonthSum plan={ plan }/>
                     </div>
                 </div>
                 <div className="col-md-6">

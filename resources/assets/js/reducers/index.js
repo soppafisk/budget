@@ -7,7 +7,8 @@ export function receiptReducer(state = initialState, action) {
     switch (action.type) {
         case 'UPDATE_RECEIPTS':
             return Object.assign({}, state, {
-                receipts: action.receipts
+                receipts: action.receipts,
+                planData: action.planData,
             });
 
         case 'ADD_RECEIPT':
