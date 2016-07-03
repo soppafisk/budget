@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Plan;
 use App\Receipt;
 use App\Store;
+use App\User;
 use JWTAuth;
 use Carbon\Carbon;
 use Dingo\Api\Routing\Helpers;
@@ -21,8 +22,7 @@ class ReceiptController extends Controller
     public function store(Request $request, $planId)
     {
         $receipt = new Receipt($request->all()['receipt']);
-
-        $user = JWTAuth::parseToken()->toUser();
+        $user = User::findOrFail($request->input('receipt.user_id'));
 
         $storeName = $request->input('receipt.store');
         $date = $request->input('receipt.buy_date');
@@ -48,8 +48,9 @@ class ReceiptController extends Controller
         return [
             'receipts' => $receipts,
             'planData' => [
-                'month' => $month,
-                'year'  => $year
+                'month'  => $month,
+                'year'   => $year,
+                'users'  => $plan->users->toArray(),
             ]
         ];
     }
@@ -70,13 +71,13 @@ class ReceiptController extends Controller
             ->with(['store'])
             ->get();
 
-
         return [
             'receipts' => $receipts,
             'planData' => [
                 'planId' => $planId,
                 'month'  => $month,
-                'year'   => $year
+                'year'   => $year,
+                'users'  => $plan->users->toArray(),
             ]
         ];
     }
@@ -85,6 +86,7 @@ class ReceiptController extends Controller
     {
         $plan = Plan::findOrFail($planId);
         $user = JWTAuth::parseToken()->toUser();
+
         $receipt = $user->receipts()->findOrFail($receiptId);
 
         if(!$receipt) {
