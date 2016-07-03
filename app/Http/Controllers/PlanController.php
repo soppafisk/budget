@@ -9,6 +9,7 @@ use Auth;
 use JWTAuth;
 use App\Plan;
 use App\Store;
+use App\User;
 
 class PlanController extends Controller
 {
@@ -45,4 +46,25 @@ class PlanController extends Controller
 
         return redirect('plan');
     }
+
+    public function associateUserStore(Request $request, $id)
+    {
+        $plan = Plan::findOrFail($id);
+
+        $user = User::where('email', $request->email)->first();
+
+        $plan->users()->sync([$user->id], false);
+
+        $plan->save();
+
+        return redirect('plan');
+    }
+
+    public function associateUserCreate(Request $request, $id)
+    {
+        $plan = Plan::with(['users'])->findOrFail($id);
+
+        return view('plan.adduser', compact('plan'));
+    }
 }
+

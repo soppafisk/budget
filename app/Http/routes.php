@@ -29,6 +29,13 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('plan/{id}/adduser', 'PlanController@associateUserCreate');
+Route::post('plan/{id}/adduser/',
+    [
+        'as' => 'plan.associateUser',
+        'uses' => 'PlanController@associateUserStore'
+    ]
+);
 
 Route::get('/plan/{id}/{params}', 'PlanController@show')->where(['params' => '.*']);
 Route::get('/plan/{id}', 'PlanController@show');
