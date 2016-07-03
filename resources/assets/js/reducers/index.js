@@ -1,6 +1,6 @@
 var initialState = {
     receipts: [],
-    planData: {}
+    planData: { users: [] }
 };
 
 export function receiptReducer(state = initialState, action) {
@@ -45,6 +45,7 @@ const initialNewReceiptState = {
     sum: 0,
     buy_amount: '',
     buy_date: new Date().toISOString().slice(0,10),
+    user_id: 0,
     comment: '',
 }
 

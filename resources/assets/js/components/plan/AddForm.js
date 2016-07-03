@@ -8,18 +8,27 @@ var AddForm = React.createClass({
         let {
             dispatch,
             handleSubmit,
-            planId
+            planData,
         } = this.props;
 
-        dispatch(addReceipt(newReceipt, planId));
+        dispatch(addReceipt(newReceipt, planData.planId));
     },
     render: function(){
 
-        var { 
-            fields: { amount, store, buy_date, comment },
+        var {
+            fields: { amount, store, buy_date, user_id, comment },
             handleSubmit,
-            planId
+            planData,
         } = this.props;
+
+        var userRadioButtons = planData.users.map(function(user) {
+            return (
+                <div key={ user.id }>
+                    <label for={ 'user_' + user.id }>{ user.name }</label>
+                    <input type="radio" {...user_id} name="user_id" id={ 'user_' + user.id } value={ user.id } />
+                </div>
+            );
+        });
 
         return(
             <div className="addForm">
@@ -35,6 +44,9 @@ var AddForm = React.createClass({
                     <div className="form-group">
                         <label htmlFor="buy_date">Köpdatum:</label>
                         <input type="date" name="buy_date" className="form-control" {...buy_date} />
+                    </div>
+                    <div className="form-group">
+                        { userRadioButtons }
                     </div>
                     <div className="form-group">
                         <label htmlFor="comment">Kommentar:</label>
@@ -54,7 +66,7 @@ var AddForm = React.createClass({
 
 AddForm = reduxForm({
     form: 'addReceiptForm',
-    fields: ['amount', 'store', 'buy_date', 'comment'],
+    fields: ['amount', 'store', 'buy_date', 'user_id', 'comment'],
 },
 state => ({
     initialValues: state.newReceipt,

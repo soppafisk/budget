@@ -36,6 +36,7 @@ const Plan = React.createClass({
     },
     render: function() {
         let plan = this.props.receipts;
+        let planData = plan.planData;
         let { dispatch } = this.props;
         let removeButtonClick = this.removeButtonClick;
         let planId = this.props.params.planId;
@@ -58,7 +59,7 @@ const Plan = React.createClass({
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <AddForm planId={ planId } />
+                    <AddForm planData={ planData } />
                 </div>
             </div>
         );
