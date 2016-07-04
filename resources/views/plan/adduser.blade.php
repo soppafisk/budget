@@ -5,10 +5,20 @@
     <div class="row">
         <div class="col-md-10">
             <h1>Users</h1>
-
-            @foreach($plan->users as $user)
-                <h3>{{ $user->name }}</h3>
-            @endforeach
+            <ul>
+                @foreach($plan->users as $user)
+                    <li>
+                        {{ $user->name }}
+                        <a href="{{ route('plan.associateUserRemove', [
+                                        'planId' => $plan->id,
+                                        'userId' => $user->id
+                                    ])
+                                }}">
+                            <span class="fa fa-times"></span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
 
             {!! Form::open(['route' => ['plan.associateUser', 'id' => $plan->id ]]) !!}
 

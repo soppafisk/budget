@@ -36,6 +36,12 @@ Route::post('plan/{id}/adduser/',
         'uses' => 'PlanController@associateUserStore'
     ]
 );
+Route::get('plan/{planId}/removeuser/{userId}',
+    [
+        'as' => 'plan.associateUserRemove',
+        'uses' => 'PlanController@associateUserRemove'
+    ]
+);
 
 Route::get('/plan/{id}/{params}', 'PlanController@show')->where(['params' => '.*']);
 Route::get('/plan/{id}', 'PlanController@show');

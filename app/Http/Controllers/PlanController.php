@@ -66,5 +66,14 @@ class PlanController extends Controller
 
         return view('plan.adduser', compact('plan'));
     }
+
+    public function associateUserRemove(Request $request, $planId, $userId)
+    {
+        $plan = Plan::findOrFail($planId);
+
+        $plan->users()->detach($userId);
+
+        return redirect('plan');
+    }
 }
 
