@@ -25,6 +25,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/user/{id}/color', 'UserController@setColor');
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
