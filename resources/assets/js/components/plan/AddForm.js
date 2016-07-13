@@ -5,7 +5,6 @@ import { addReceipt } from '../../actions'
 
 const validate = values => {
     const errors = {}
-    console.log(values)
 
     if (!values.user_id) {
         errors.user_id = "Välj användare"
@@ -43,8 +42,8 @@ var AddForm = React.createClass({
             handleSubmit,
             planData,
         } = this.props;
-
-        var userRadioButtons = planData.users.map(function(user) {
+        var userRadioButtons = Object.keys(planData.users).map(function(data, index) {
+            let user = planData.users[index];
             return (
                 <div key={ user.id }>
                     <label for={ 'user_' + user.id }>{ user.name }</label>

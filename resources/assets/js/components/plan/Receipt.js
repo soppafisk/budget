@@ -4,10 +4,10 @@ import RemoveButton from './RemoveButton'
 
 const Receipt = (props) => {
   const receipt = props.data
-  const { removeButtonClick } = props;
+  const { removeButtonClick, user } = props;
 
   return (
-      <div className="plan receipt item">
+      <div className="plan receipt item" style={{ background: user ? user.color : ''}}>
         <div className="receipt amount">
             { receipt.amount } kr
         </div>

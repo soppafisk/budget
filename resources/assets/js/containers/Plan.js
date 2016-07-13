@@ -40,10 +40,16 @@ const Plan = React.createClass({
         let { dispatch } = this.props;
         let removeButtonClick = this.removeButtonClick;
         let planId = this.props.params.planId;
+        let users = planData.users;
         let receiptNodes = plan.receipts.map(function(data) {
             let receipt = data;
+
+            let userId = receipt.user_id;
+            let user = users.find(function(user){
+                return user.id === userId;
+            });
             return (
-                <Receipt data={receipt} key={ receipt.id } removeButtonClick={ () => dispatch(removeReceipt(receipt, planId)) }/>
+                <Receipt data={receipt} user={ user } key={ receipt.id } removeButtonClick={ () => dispatch(removeReceipt(receipt, planId)) }/>
             );
         })
         return (
