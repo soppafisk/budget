@@ -45,9 +45,9 @@ const MonthChooser = (props) => {
 
   return (
     <div className="month-chooser">
-      <Link to={prevMonthUrl}>prev</Link>
+      <Link to={prevMonthUrl}><i className="fa fa-angle-double-left" aria-hidden="true"></i></Link>
       { currentMonth }
-      <Link to={nextMonthUrl}>next</Link>
+      <Link to={nextMonthUrl}><i className="fa fa-angle-double-right" aria-hidden="true"></i></Link>
 
     </div>
   );
