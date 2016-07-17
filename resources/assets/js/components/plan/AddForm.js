@@ -45,9 +45,11 @@ var AddForm = React.createClass({
         var userRadioButtons = Object.keys(planData.users).map(function(data, index) {
             let user = planData.users[index];
             return (
-                <div key={ user.id }>
-                    <label for={ 'user_' + user.id }>{ user.name }</label>
-                    <input type="radio" {...user_id} name="user_id" id={ 'user_' + user.id } value={ user.id } />
+                <div className="radio" key={ user.id }>
+                    <label for={ 'user_' + user.id }>
+                        <input type="radio" {...user_id} name="user_id" id={ 'user_' + user.id } value={ user.id } />
+                        { user.name }
+                    </label>
                 </div>
             );
         });
