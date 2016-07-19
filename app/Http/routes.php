@@ -17,8 +17,6 @@ $api->version('v1', function($api) {
     $api->get('/plan/{id}/y/{year}/m/{month}', 'App\Http\Controllers\Api\ReceiptController@show');
     $api->post('plan/{planId}/receipt', 'App\Http\Controllers\Api\ReceiptController@store');
     $api->delete('/plan/{planId}/receipt/{receiptId}', 'App\Http\Controllers\Api\ReceiptController@remove');
-    $api->get('/plan/{id}/', 'App\Http\Controllers\Api\ReceiptController@show');
-
 });
 
 Route::get('/', function () {

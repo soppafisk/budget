@@ -58,10 +58,7 @@ class ReceiptController extends Controller
     public function show($planId, $year = null, $month = null)
     {
         if (!$year || !$month) {
-            $date = Carbon::now();
-
-            $year = $date->year;
-            $month = $date->month;
+            throw new Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Date not specified');
         }
         $plan = Plan::findOrFail($planId);
 

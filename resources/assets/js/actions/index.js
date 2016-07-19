@@ -22,11 +22,30 @@ function checkStatus(result) {
 
 }
 
-export function fetchReceipts(planId, year, month) {
+function getCurrentMonth() {
+    return new Date().getMonth() + 1;
+}
+
+function getCurrentYear() {
+    return new Date().getFullYear();
+}
+
+export function fetchReceipts(planId, year = null, month = null) {
     let url = getApiUrl(planId);
-    if (year && month) {
-        url = url + `/y/${year}/m/${month}`
+    var pushDateToUrl = false;
+    if (!year || !month) {
+        pushDateToUrl = true;
     }
+    if (!year) {
+        year = getCurrentYear();
+    }
+
+    if (!month) {
+        month = getCurrentMonth();
+    }
+
+    url = url + `/y/${year}/m/${month}`
+
     return dispatch => {
         fetch(url)
         .then(result => result.json())
@@ -37,8 +56,8 @@ export function fetchReceipts(planId, year, month) {
             })
         )
         .then(result => {
-            if (!year && !month) {
-                const { year, month } = result.planData;
+            const { year, month } = result.planData;
+            if (pushDateToUrl) {
                 dispatch(push(`/plan/${planId}/y/${year}/m/${month}`))
             }
             dispatch({
