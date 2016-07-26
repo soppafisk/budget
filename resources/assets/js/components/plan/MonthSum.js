@@ -3,7 +3,8 @@ import React from 'react'
 const MonthSum = (props) => {
   const { plan } = props;
   const receipts = plan.receipts;
-
+  const users = plan.planData.users;
+  console.log(users);
   var result = [];
   var sum = 0;
 
@@ -18,11 +19,14 @@ const MonthSum = (props) => {
     }
   });
 
-  var resultNodes = result.map(function(res, index) {
+  var resultNodes = result.map(function(res, userId) {
+    let user = users.find(function(user){
+        return user.id === userId;
+    });
 
     return (
-        <div className="result-row" key={ index} >
-            { index }: { result[index] }
+        <div className="result-row" key={ userId } >
+            { user.name }: { result[userId] } kr
         </div>
     );
   });
@@ -30,7 +34,7 @@ const MonthSum = (props) => {
   return (
       <div className="result">
         { resultNodes }
-        summa: { sum }
+        summa: { sum } kr
       </div>
   );
 }
