@@ -4,14 +4,13 @@ const MonthSum = (props) => {
   const { plan } = props;
   const receipts = plan.receipts;
   const users = plan.planData.users;
-  console.log(users);
+
   var result = [];
   var sum = 0;
 
   receipts.map(function(receipt) {
     let { user_id, amount } = receipt;
     sum += amount;
-
     if (!(user_id in result)) {
       result[user_id] = amount;
     } else {
@@ -19,14 +18,18 @@ const MonthSum = (props) => {
     }
   });
 
+  const average = sum / users.length;
+  calculatePay(result.concat(), sum, users);
   var resultNodes = result.map(function(res, userId) {
-    let user = users.find(function(user){
+
+    var user = users.find(function(user){
         return user.id === userId;
     });
+    let userSum = result[userId];
 
     return (
         <div className="result-row" key={ userId } >
-            { user.name }: { result[userId] } kr
+            { user.name }: { userSum } kr ({ userSum - average } kr)
         </div>
     );
   });
@@ -41,3 +44,11 @@ const MonthSum = (props) => {
 
 export default MonthSum
 
+function calculatePay(result, sum, users) {
+  var average = sum/users.length;
+  var sorted = [];
+  var transactions = [];
+  result.forEach(function(userSum, userId) {
+     sorted.push({userId: userId, sum: userSum });
+  });
+}
