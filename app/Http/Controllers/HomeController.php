@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Auth;
+use JWTAuth;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,9 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $token = JWTAuth::fromUser($user);
+        $plans = $user->plans()->get();
 
-        return view('home', compact('user'));
+        return view('home', compact('user', 'token', 'plans'));
     }
 }

@@ -45,6 +45,5 @@ Route::get('plan/{planId}/removeuser/{userId}',
 
 Route::get('/plan/{id}/{params}', 'PlanController@show')->where(['params' => '.*']);
 Route::get('/plan/{id}', 'PlanController@show');
-Route::get('/plan', 'PlanController@index');
 
 Route::post('/plan/store', ['as' => 'plan.store', 'uses' => 'PlanController@store']);

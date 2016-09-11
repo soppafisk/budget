@@ -13,15 +13,6 @@ use App\User;
 
 class PlanController extends Controller
 {
-    public function index()
-    {
-        $user = Auth::user();
-        $token = JWTAuth::fromUser($user);
-        $plans = $user->plans()->get();
-
-        return view('plan/index', compact('token', 'plans'));
-    }
-
     public function show($id)
     {
         $user = Auth::user();
