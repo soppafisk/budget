@@ -113,6 +113,7 @@ export function removeReceipt(receipt, planId) {
             })
         })
         .then(checkStatus)
+        .then(result => result.json())
         .then(result => {
             dispatch({
                 type: 'REMOVE_RECEIPT',
