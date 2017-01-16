@@ -6,7 +6,7 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-rou
 import { Router, hashHistory, browserHistory } from 'react-router';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
-import { receiptReducer, visibilityFilter, newReceipt, planData } from './reducers';
+import { receiptReducer, visibilityFilter, newReceipt, planData, storesReducer } from './reducers';
 import routes from './routes';
 
 const reducer = combineReducers({
@@ -16,6 +16,7 @@ const reducer = combineReducers({
     form: formReducer,
     visibilityFilter: visibilityFilter,
     planData: planData,
+    stores: storesReducer,
 });
 
 const createStoreWithMiddleware = applyMiddleware(routerMiddleware(browserHistory), thunk)(createStore);

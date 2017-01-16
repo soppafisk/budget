@@ -67,3 +67,14 @@ export function planData(state = {}, action) {
             return state;
     }
 }
+
+export function storesReducer(state = [], action) {
+    switch (action.type) {
+        case 'UPDATE_STORES':
+            return Object.assign({}, state, {
+                list: action.stores
+            });
+        default:
+            return state;
+    }
+}

@@ -37,6 +37,7 @@ const Plan = React.createClass({
     render: function() {
         let plan = this.props.receipts;
         let planData = plan.planData;
+        let stores = this.props.stores;
         let { dispatch } = this.props;
         let removeButtonClick = this.removeButtonClick;
         let planId = this.props.params.planId;
@@ -65,7 +66,7 @@ const Plan = React.createClass({
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <AddForm planData={ planData } />
+                    <AddForm planData={ planData } stores={ stores } />
                 </div>
             </div>
         );
@@ -73,9 +74,10 @@ const Plan = React.createClass({
 });
 
 function mapStateToProps(state) {
-    const { receipts } = state
+    const { receipts, stores } = state
     return {
         receipts,
+        stores,
     }
 }
 

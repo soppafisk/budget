@@ -122,3 +122,29 @@ export function removeReceipt(receipt, planId) {
         });
     };
 }
+
+export function searchStores(data, planId) {
+    var url = getApiUrl(planId) + '/store/';
+
+    return dispatch => {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': getAuthToken(),
+            },
+            body: JSON.stringify({
+                term: data,
+            })
+        })
+        .then(checkStatus)
+        .then(result => result.json())
+        .then(result => {
+            dispatch({
+                type: 'UPDATE_STORES',
+                stores: result.stores
+            });
+        });
+    };
+}
