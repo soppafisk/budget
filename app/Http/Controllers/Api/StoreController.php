@@ -16,7 +16,7 @@ class StoreController extends Controller
 
         $stores = Store::where('name', 'LIKE', '%' . $storeName . '%')
             ->limit(10)
-            ->get(['id', 'name']);
+            ->get(['id as value', 'name as label']);
 
         return ['stores' => $stores];
     }
