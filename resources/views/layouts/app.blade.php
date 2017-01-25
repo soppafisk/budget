@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
     <!-- Styles -->
+    <link href="/css/all.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
 
     <style>

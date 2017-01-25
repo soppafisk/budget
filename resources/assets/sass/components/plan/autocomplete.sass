@@ -1,0 +1,28 @@
+.autocomplete
+  display: none
+
+  &.active
+    display: flex
+    flex-direction: column
+    position: absolute
+    left: 2rem
+    z-index: 1000
+    background: white
+    width: 30rem
+    list-style: none
+    padding: .5rem 0
+    font-weight: bold
+    box-shadow: 0px 3px 5px #b1b1b1
+
+    li
+      display: flex
+
+      a
+        color: #4e4e4e
+        padding: .5rem .8rem
+        width: 100%
+
+        &:hover
+          text-decoration: none
+          background-color: #e3e3e3
+          transition: background-color 0.1s ease-in-out;

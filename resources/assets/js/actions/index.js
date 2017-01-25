@@ -148,3 +148,20 @@ export function searchStores(data, planId) {
         });
     };
 }
+
+export function showAutocomplete(shouldShow) {
+    if (!shouldShow) {
+        return dispatch => {
+            dispatch({
+                type: 'HIDE_AUTOCOMPLETE',
+            });
+        }
+    }
+
+    return dispatch => {
+        dispatch({
+            type: 'SHOW_AUTOCOMPLETE',
+        });
+    }
+
+}

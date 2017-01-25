@@ -68,11 +68,26 @@ export function planData(state = {}, action) {
     }
 }
 
-export function storesReducer(state = [], action) {
+export function storesReducer(state = {list:[]}, action) {
     switch (action.type) {
         case 'UPDATE_STORES':
             return Object.assign({}, state, {
                 list: action.stores
+            });
+        default:
+            return state;
+    }
+}
+
+export function autocomplete(state = { shouldShow: false }, action) {
+    switch (action.type) {
+        case 'HIDE_AUTOCOMPLETE':
+            return Object.assign({}, state, {
+                shouldShow: false
+            });
+        case 'SHOW_AUTOCOMPLETE':
+            return Object.assign({}, state, {
+                shouldShow: true
             });
         default:
             return state;
