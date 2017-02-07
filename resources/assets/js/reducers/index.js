@@ -33,18 +33,10 @@ export function receiptReducer(state = initialState, action) {
     }
 }
 
-export function visibilityFilter(state = 'SHOW_ALL', action) {
-    switch (action.type) {
-        default:
-            return state;
-    }
-}
-
 const initialNewReceiptState = {
     store: '',
-    sum: 0,
-    buy_amount: '',
-    buy_date: new Date().toISOString().slice(0,10),
+    amount: 0,
+    buy_date: new Date(),
     user_id: 0,
     comment: '',
 }

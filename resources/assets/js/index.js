@@ -6,7 +6,7 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-rou
 import { Router, hashHistory, browserHistory } from 'react-router';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
-import { receiptReducer, visibilityFilter, newReceipt, planData, storesReducer, autocomplete } from './reducers';
+import { receiptReducer, newReceipt, planData, storesReducer, autocomplete } from './reducers';
 import routes from './routes';
 
 const reducer = combineReducers({
@@ -14,7 +14,6 @@ const reducer = combineReducers({
     routing: routerReducer,
     receipts: receiptReducer,
     form: formReducer,
-    visibilityFilter: visibilityFilter,
     planData: planData,
     stores: storesReducer,
     autocomplete: autocomplete

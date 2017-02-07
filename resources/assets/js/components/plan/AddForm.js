@@ -4,6 +4,14 @@ import { Field, reduxForm } from 'redux-form'
 import { addReceipt, searchStores, showAutocomplete } from '../../actions'
 import { AsyncCreatable } from 'react-select';
 import StoreAutocomplete from './StoreAutocomplete';
+import { DatePicker } from 'redux-form-material-ui';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+
 
 const validate = values => {
     const errors = {}
@@ -109,7 +117,14 @@ var AddForm = React.createClass({
                     </div>
                     <div className="form-group">
                         <label htmlFor="buy_date">Köpdatum:</label>
-                        <Field component="input" type="date" name="buy_date" className="form-control" />
+                        <MuiThemeProvider getMuiTheme={darkBaseTheme}>
+                            <Field component={ DatePicker }
+                                   container="inline"
+                                   mode="landscape"
+                                   name="buy_date"
+                            />
+
+                        </MuiThemeProvider>
                     </div>
                     <div className="form-group">
                         { userRadioButtons }

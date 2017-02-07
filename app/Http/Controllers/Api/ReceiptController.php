@@ -21,13 +21,15 @@ class ReceiptController extends Controller
 
     public function store(Request $request, $planId)
     {
-        $receipt = new Receipt($request->all()['receipt']);
-        $user = User::findOrFail($request->input('receipt.user_id'));
+        $data = $request->except(['buy_date']);
 
-        $storeName = $request->input('receipt.store');
-        $date = $request->input('receipt.buy_date');
-        $receipt->buy_date = Carbon::createFromFormat('Y-m-d', $date);
+        $date = Carbon::parse($request->input('buy_date'));
+        $data['buy_date'] = $date;
+        $receipt = new Receipt($data);
 
+        $user = User::findOrFail($data['user_id']);
+
+        $storeName = $request->input('store');
         $store = Store::firstOrCreate(['name' => $storeName]);
         $receipt->store()->associate($store);
 
@@ -48,6 +50,7 @@ class ReceiptController extends Controller
         return [
             'receipts' => $receipts,
             'planData' => [
+                'planId' => $planId,
                 'month'  => $month,
                 'year'   => $year,
                 'users'  => $plan->users->toArray(),
@@ -83,12 +86,12 @@ class ReceiptController extends Controller
     {
         $plan = Plan::findOrFail($planId);
         $user = JWTAuth::parseToken()->toUser();
-
-        $receipt = $user->receipts()->findOrFail($receiptId);
-
-        if(!$receipt) {
+        if (!$plan->users->contains($user->id)) {
             return $this->response->errorForbidden();
         }
+
+        $receipt = $plan->receipts()->findOrFail($receiptId);
+
 
         if (!$receipt->delete()) {
             return $this->response->errorInternal();

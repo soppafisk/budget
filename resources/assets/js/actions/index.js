@@ -80,9 +80,9 @@ export function addReceipt(receipt, planId) {
               'Content-Type': 'application/json',
               'Authorization': auth,
             },
-            body: JSON.stringify({
-                receipt: receipt,
-            })
+            body: JSON.stringify(
+                receipt
+            )
         })
         .then(checkStatus)
         .then(result => result.json())
@@ -113,7 +113,6 @@ export function removeReceipt(receipt, planId) {
             })
         })
         .then(checkStatus)
-        .then(result => result.json())
         .then(result => {
             dispatch({
                 type: 'REMOVE_RECEIPT',
