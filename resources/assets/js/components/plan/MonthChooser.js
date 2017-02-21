@@ -44,12 +44,20 @@ const MonthChooser = (props) => {
   let nextMonthUrl = `/plan/${planId}/y/${nextMonth.year}/m/${nextMonth.month}`;
 
   return (
-    <div className="month-chooser">
-      <Link to={prevMonthUrl}><i className="fa fa-angle-double-left" aria-hidden="true"></i></Link>
-      { currentMonth }
-      <Link to={nextMonthUrl}><i className="fa fa-angle-double-right" aria-hidden="true"></i></Link>
+      <div className="col-xs-6">
+        <div className="month-chooser row">
+          <div className="col-xs-2">
+            <Link to={prevMonthUrl}><i className="fa fa-angle-double-left" aria-hidden="true"></i></Link>
+          </div>
+          <div className="col-xs-8 text-center">
+              { currentMonth }
+          </div>
+          <div className="col-xs-2 text-right">
+            <Link to={nextMonthUrl}><i className="fa fa-angle-double-right" aria-hidden="true"></i></Link>
+          </div>
+        </div>
+      </div>
 
-    </div>
   );
 }
 

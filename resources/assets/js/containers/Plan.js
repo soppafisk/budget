@@ -5,6 +5,7 @@ import MonthChooser from '../components/plan/MonthChooser'
 import MonthSum from '../components/plan/MonthSum'
 import { fetchReceipts, removeReceipt } from '../actions'
 import Receipt from '../components/plan/Receipt'
+import PlanHeader from '../components/plan/PlanHeader'
 var $ = require('jquery');
 
 const Plan = React.createClass({
@@ -55,9 +56,17 @@ const Plan = React.createClass({
         })
         return (
             <div className="plan row">
-
                 <div className="col-md-6">
-                    <MonthChooser params={ this.props.params } router={ history } removeButtonClick={ () => dispatch(removeReceipt(receipt, planId)) } />
+                    <div className="row">
+                        <MonthChooser
+                            params={ this.props.params }
+                            router={ history }
+                            removeButtonClick={ () =>
+                                dispatch(removeReceipt(receipt, planId))
+                            }
+                        />
+                        <PlanHeader planData={ this.props.receipts.planData }/>
+                    </div>
                     <div className="plan-list">
                         {receiptNodes}
                     </div>
